@@ -30,13 +30,13 @@ public class GarantieController {
     
     
     //recuperer la liste des garanties  
-    @GetMapping("/api/garanties")
+    @GetMapping("/api/garantie")
     public ResponseEntity<Collection<Garantie>> getGarantie() {
         return ResponseEntity.ok().body(listDb.values());
     }
     
     //supprimer garantie
-    @DeleteMapping("/api/garanties/{id}")
+    @DeleteMapping("/api/garantie/{id}")
     public ResponseEntity<String> deleteGarantie(@PathVariable("id") @NonNull int id) {
         if (listDb.containsKey(id)) {
         	Garantie garantie =listDb.get(id);
@@ -47,7 +47,7 @@ public class GarantieController {
         return ResponseEntity.notFound().build();
     }
     //modifier garantie
-    @PutMapping(path = "/api/garanties/{id}", produces= {MediaType.APPLICATION_JSON_VALUE})
+    @PutMapping(path = "/api/garantie/{id}", produces= {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Garantie> modifierGarantie(@PathVariable("id") @NonNull int id, @RequestBody String nom, @RequestBody String description, @RequestBody int montant) {
         if (listDb.containsKey(id)) {
         	Garantie garantie=listDb.get(id);
@@ -64,7 +64,7 @@ public class GarantieController {
     }
     
     //recuperation de quarantie specifique
-    @GetMapping("/api/garanties/{id}")
+    @GetMapping("/api/garantie/{id}")
     public ResponseEntity<Garantie> getEquipe(@PathVariable("id") @NonNull int id) {
         if (listDb.containsKey(id)) {
             return ResponseEntity.ok(listDb.get(id));
@@ -75,7 +75,7 @@ public class GarantieController {
     
     //creation de garantie
     
-    @PostMapping("/api/garanties")
+    @PostMapping("/api/garantie")
     public ResponseEntity<Garantie> postGarantie(@RequestParam("nom") String nom, @RequestParam("montant") int montant, @RequestParam("description") String description) {
 
     	if(nom.isEmpty()|| description.isEmpty()) {
