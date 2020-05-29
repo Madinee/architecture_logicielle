@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,22 +73,24 @@ public class GarantieController {
     }
     
     //creation de garantie
-//    @PostMapping("/api/garantie")
-//    public ResponseEntity<Garantie> postEquipe(@RequestParam("nom") String nom, @RequestParam("montant") int montant, @RequestParam("description") String description) {
-//        if (StringUtils.isBlank(nom)) {
-//            return ResponseEntity.status(400).build();
-//        }
-//
-//        // affectation d'un id et persistance
-//        Garantie garantie = new Garantie();
-//        equipe.setId(id);
-//        equipe.setName(name);
-//        fakeDb.put(equipe.getId(), equipe);
-//
-//        // URI de localisation de la ressource
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").build(equipe.getId());
-//
-//        // réponse 201 avec la localisation et la ressource créée
-//        return ResponseEntity.created(location).body(garantie);
-//    }
+    
+    @PostMapping("/api/garantie")
+    public ResponseEntity<Garantie> postGarantie(@RequestParam("nom") String nom, @RequestParam("montant") int montant, @RequestParam("description") String description) {
+
+    	if(nom.isEmpty()|| description.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+    	}
+    	
+        // affectation d'un id et persistance
+        Garantie garantie = new Garantie();
+        garantie.setId(listDb.size()-1);
+        garantie.setNom(nom);
+        garantie.setDescription(description);
+        garantie.setMontant(montant);
+
+        listDb.put(garantie.getId(), garantie);
+
+        return ResponseEntity.ok().body(garantie);
+
+    }
 }

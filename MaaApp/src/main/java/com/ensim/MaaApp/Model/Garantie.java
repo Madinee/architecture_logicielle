@@ -7,9 +7,12 @@ public class Garantie {
 	private String description;
 	
 	public Garantie(String nom, int montant, String description) {
+		super();
 		this.nom = nom;
 		this.montant = montant;
 		this.description = description;
+	}
+	public Garantie() {
 	}
 	public int getId() {
 		return id;
