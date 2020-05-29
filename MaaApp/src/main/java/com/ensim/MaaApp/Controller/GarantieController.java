@@ -39,8 +39,9 @@ public class GarantieController {
     @DeleteMapping("/api/garanties/{id}")
     public ResponseEntity<String> deleteGarantie(@PathVariable("id") @NonNull int id) {
         if (listDb.containsKey(id)) {
+        	Garantie garantie =listDb.get(id);
         	listDb.remove(id);
-            return ResponseEntity.ok().body(listDb.get(id).getNom()+ " a été supprimée");
+            return ResponseEntity.ok().body(garantie.getNom()+ " a été supprimée");
         }
 
         return ResponseEntity.notFound().build();
