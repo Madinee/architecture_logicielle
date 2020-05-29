@@ -39,8 +39,9 @@ public class GarantieController {
     @DeleteMapping("/api/garantie/{id}")
     public ResponseEntity<String> deleteGarantie(@PathVariable("id") @NonNull int id) {
         if (listDb.containsKey(id)) {
+        	Garantie garantie =listDb.get(id);
         	listDb.remove(id);
-            return ResponseEntity.ok().body(listDb.get(id).getNom()+ " a été supprimée");
+            return ResponseEntity.ok().body(garantie.getNom()+ " a été supprimée");
         }
 
         return ResponseEntity.notFound().build();
@@ -83,7 +84,7 @@ public class GarantieController {
     	
         // affectation d'un id et persistance
         Garantie garantie = new Garantie();
-        garantie.setId(listDb.size()-1);
+        garantie.setId(listDb.size());
         garantie.setNom(nom);
         garantie.setDescription(description);
         garantie.setMontant(montant);
