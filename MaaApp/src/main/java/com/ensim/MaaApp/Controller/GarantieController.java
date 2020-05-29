@@ -30,13 +30,13 @@ public class GarantieController {
     
     
     //recuperer la liste des garanties  
-    @GetMapping("/api/garantie")
+    @GetMapping("/api/garanties")
     public ResponseEntity<Collection<Garantie>> getGarantie() {
         return ResponseEntity.ok().body(listDb.values());
     }
     
     //supprimer garantie
-    @DeleteMapping("/api/garantie/{id}")
+    @DeleteMapping("/api/garanties/{id}")
     public ResponseEntity<String> deleteGarantie(@PathVariable("id") @NonNull int id) {
         if (listDb.containsKey(id)) {
         	listDb.remove(id);
@@ -46,7 +46,7 @@ public class GarantieController {
         return ResponseEntity.notFound().build();
     }
     //modifier garantie
-    @PutMapping(path = "/api/garantie/{id}", produces= {MediaType.APPLICATION_JSON_VALUE})
+    @PutMapping(path = "/api/garanties/{id}", produces= {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<Garantie> modifierGarantie(@PathVariable("id") @NonNull int id, @RequestBody String nom, @RequestBody String description, @RequestBody int montant) {
         if (listDb.containsKey(id)) {
         	Garantie garantie=listDb.get(id);
@@ -63,7 +63,7 @@ public class GarantieController {
     }
     
     //recuperation de quarantie specifique
-    @GetMapping("/api/garantie/{id}")
+    @GetMapping("/api/garanties/{id}")
     public ResponseEntity<Garantie> getEquipe(@PathVariable("id") @NonNull int id) {
         if (listDb.containsKey(id)) {
             return ResponseEntity.ok(listDb.get(id));
@@ -74,7 +74,7 @@ public class GarantieController {
     
     //creation de garantie
     
-    @PostMapping("/api/garantie")
+    @PostMapping("/api/garanties")
     public ResponseEntity<Garantie> postGarantie(@RequestParam("nom") String nom, @RequestParam("montant") int montant, @RequestParam("description") String description) {
 
     	if(nom.isEmpty()|| description.isEmpty()) {
@@ -83,7 +83,7 @@ public class GarantieController {
     	
         // affectation d'un id et persistance
         Garantie garantie = new Garantie();
-        garantie.setId(listDb.size()-1);
+        garantie.setId(listDb.size());
         garantie.setNom(nom);
         garantie.setDescription(description);
         garantie.setMontant(montant);
